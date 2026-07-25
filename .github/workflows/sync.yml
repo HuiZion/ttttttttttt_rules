@@ -28,6 +28,8 @@ jobs:
           git checkout upstream/master -- naming-rules.yaml
           git checkout upstream/master -- quality-rules.yaml
           git checkout upstream/master -- tmdb_override
+          git checkout upstream/master -- mt_tg.md
+          git checkout upstream/master -- output_name.yaml
 
       - name: Remove 妻子的浪漫旅行 rules
         run: |
