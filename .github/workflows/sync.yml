@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write
-  
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -28,6 +28,44 @@ jobs:
           git checkout upstream/master -- naming-rules.yaml
           git checkout upstream/master -- quality-rules.yaml
           git checkout upstream/master -- tmdb_override
+
+      - name: Remove 妻子的浪漫旅行 rules
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          file_path = Path("full_rules.yaml")
+          content = file_path.read_text(encoding="utf-8")
+
+          pattern = re.compile(
+              r"""
+              ^[ \t]*\#\s*妻子的浪漫旅行[^\n]*\n
+              [ \t]*-\s*tmdb:\s*97199\s*\n
+              [ \t]+from:\s*\{\s*season:\s*7,\s*ep:\s*\[1,\s*14\]\s*\}\s*\n
+              [ \t]+to_tmdb:\s*239038\s*\n
+              [ \t]+to:\s*\{\s*season:\s*1,\s*ep:\s*\[1,\s*14\]\s*\}\s*\n
+              (?:[ \t]*\n)*
+              [ \t]*-\s*tmdb:\s*97199\s*\n
+              [ \t]+from:\s*\{\s*season:\s*8,\s*ep:\s*\[1,\s*13\]\s*\}\s*\n
+              [ \t]+to:\s*\{\s*season:\s*7,\s*ep:\s*\[1,\s*13\]\s*\}\s*\n
+              (?:[ \t]*\n)*
+              [ \t]*-\s*tmdb:\s*97199\s*\n
+              [ \t]+from:\s*\{\s*season:\s*9,\s*ep:\s*\[1,\s*16\]\s*\}\s*\n
+              [ \t]+to:\s*\{\s*season:\s*8,\s*ep:\s*\[1,\s*16\]\s*\}
+              (?:[ \t]*\n)?
+              """,
+              re.MULTILINE | re.VERBOSE,
+          )
+
+          new_content, count = pattern.subn("", content, count=1)
+
+          if count:
+              file_path.write_text(new_content, encoding="utf-8")
+              print("已删除《妻子的浪漫旅行》对应规则")
+          else:
+              print("未找到对应规则，无需删除")
+          PY
 
       - name: Commit changes
         run: |
