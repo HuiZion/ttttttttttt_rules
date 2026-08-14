@@ -24,12 +24,12 @@ output_mr:
     replace: TrueHD-Atmos              # 统一替换为 TrueHD-Atmos
 
   # DTS音频格式标准化
-  - pattern: "(?i)\\bDTS:X\\b"    # 匹配不区分大小写的 DTS:X
-    replace: DTSX                 # 统一替换为 DTSX
-  - pattern: "(?i)\\bDTS-HD MA\\b"  # 匹配不区分大小写的 DTS-HD MA
-    replace: DTSHD-MA              # 统一替换为 DTSHD-MA
-  - pattern: "(?i)\\bDTS-HD\\b"    # 匹配不区分大小写的 DTS-HD（不含MA）
-    replace: DTSHD                 # 统一替换为 DTSHD
+  #- pattern: "(?i)\\bDTS:X\\b"    # 匹配不区分大小写的 DTS:X
+  #  replace: DTSX                 # 统一替换为 DTSX
+  #- pattern: "(?i)\\bDTS-HD MA\\b"  # 匹配不区分大小写的 DTS-HD MA
+  #  replace: DTSHD-MA              # 统一替换为 DTSHD-MA
+  #- pattern: "(?i)\\bDTS-HD\\b"    # 匹配不区分大小写的 DTS-HD（不含MA）
+  #  replace: DTSHD                 # 统一替换为 DTSHD
 
   # 多余空格清理（修正了原代码语法问题）
   - pattern: "\\s{2,}"  # 匹配2个及以上的连续空格
