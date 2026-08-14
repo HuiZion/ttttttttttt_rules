@@ -34,7 +34,7 @@
 #   video_codec     视频编码（AV1 > H.265 > H.264 > ...）
 #   audio_codec     音频编码（DTS:X > TrueHD Dolby Atmos > DTS-HD MA > ...）
 #                   ⚠ 音频名称必须与 ffprobe 输出一致（见下方列表）
-#   hdr             动态范围（Dolby Vision P7 > P8 > P5 > HDR10+ > HDR10 > ...）
+#   hdr             动态范围（Dolby Vision P7 > P5 > P8 > HDR10+ > HDR10 > ...）
 #   color_depth     色深（12-bit > 10-bit > 8-bit）— 需 ffprobe
 #   frame_rate      帧率（120fps > 60fps > 30fps > ...）— 需 ffprobe
 #   subtitle        字幕（PGS 简体中文 > ASS > SRT > ...）— 需 ffprobe
@@ -151,8 +151,8 @@ quality:
         weight: 8
         priority:
           - Dolby Vision P7
-          - Dolby Vision P8
           - Dolby Vision P5
+          - Dolby Vision P8
           - Dolby Vision
           - HDR10+
           - HDR10
@@ -256,8 +256,8 @@ quality:
         weight: 15
         priority:
           - Dolby Vision P7
-          - Dolby Vision P8
           - Dolby Vision P5
+          - Dolby Vision P8
           - Dolby Vision
           - HDR10+
           - HDR10
@@ -367,8 +367,8 @@ quality:
         weight: 5
         priority:
           - Dolby Vision P7
-          - Dolby Vision P8
           - Dolby Vision P5
+          - Dolby Vision P8
           - Dolby Vision
           - HDR10+
           - HDR10
@@ -566,8 +566,8 @@ quality:
         weight: 15
         priority:
           - Dolby Vision P7
-          - Dolby Vision P8
           - Dolby Vision P5
+          - Dolby Vision P8
           - Dolby Vision
           - HDR10+
           - HDR10
@@ -685,8 +685,8 @@ quality:
         weight: 10
         priority:
           - Dolby Vision P7
-          - Dolby Vision P8
           - Dolby Vision P5
+          - Dolby Vision P8
           - Dolby Vision
           - HDR10+
           - HDR10
@@ -798,8 +798,8 @@ quality:
         weight: 8
         priority:
           - Dolby Vision P7
-          - Dolby Vision P8
           - Dolby Vision P5
+          - Dolby Vision P8
           - Dolby Vision
           - HDR10+
           - HDR10
@@ -963,6 +963,7 @@ quality:
         priority: [2160p, 1080p, 1080i, 720p, 480p]
       source:
         enabled: true
+        unknown_policy: zero
         weight: 5
         priority: [Remux+UHD BluRay, Remux+BluRay, Remux+BD, UHD BluRay, BluRay, WEB-DL, WEBRip, WEB, Unknown, HDTV, DVDRip, DVD, CAM]
       video_codec:
@@ -972,9 +973,9 @@ quality:
       audio_codec:
         enabled: false
         weight: 0
-        priority: ["DTS:X", TrueHD Dolby Atmos, DTS-HD MA, Dolby TrueHD, DTS-HD, Dolby Digital Plus Atmos, Dolby Digital Plus, DTS, Dolby Digital, FLAC, AAC, MP3]
       hdr:
         enabled: true
+        unknown_policy: zero
         weight: 40
         priority: [Dolby Vision P7,Dolby Vision P5,Dolby Vision P8,Dolby Vision, HDR10+, HDR10, HLG, HDR, SDR]
       color_depth:
@@ -984,7 +985,7 @@ quality:
       frame_rate:
         enabled: true
         weight: 5
-        priority: [120fps, 60fps, 30fps, 25fps, 24fps]
+        priority: [120fps, 60fps, 30fps, 24fps, 25fps]
       subtitle:
         enabled: true
         weight: 1
@@ -992,15 +993,16 @@ quality:
       file_extension:
         enabled: true
         weight: 2
-        priority: [mp4, mkv, ts, m2ts]
+        priority: [mkv, mp4, ts, m2ts]
       file_size:
         enabled: false
         weight: 0
-      bitrate:
+      video_bitrate:
         enabled: true
+        unknown_policy: zero
         weight: 16
     exclude:
-      resolutions: []
+      resolutions: [480p, 360p]
       codecs: []
       hdr_types: []
   # --------------------------------------------------------------------------
@@ -1060,7 +1062,7 @@ quality:
             hdr: [Dolby Vision, Dolby Vision P7, Dolby Vision P5, Dolby Vision P8]
         - name: HDR
           match:
-            hdr: [HDR10+, HDR10,HDR,SDR]
+            hdr: [HDR10+, HDR10, HDR, SDR, HLG]
       unmatched: skip
     scoring:
       resolution:
@@ -1069,6 +1071,7 @@ quality:
         priority: [2160p, 1080p, 1080i, 720p, 480p]
       source:
         enabled: true
+        unknown_policy: zero
         weight: 5
         priority: [Remux+UHD BluRay, Remux+BluRay, Remux+BD, UHD BluRay, BluRay, WEB-DL, WEBRip, WEB, Unknown, HDTV, DVDRip, DVD, CAM]
       video_codec:
@@ -1078,9 +1081,9 @@ quality:
       audio_codec:
         enabled: false
         weight: 0
-        priority: ["DTS:X", TrueHD Dolby Atmos, DTS-HD MA, Dolby TrueHD, DTS-HD, Dolby Digital Plus Atmos, Dolby Digital Plus, DTS, Dolby Digital, FLAC, AAC, MP3]
       hdr:
         enabled: true
+        unknown_policy: zero
         weight: 40
         priority: [Dolby Vision P7,Dolby Vision P5,Dolby Vision P8,Dolby Vision, HDR10+, HDR10, HLG, HDR, SDR]
       color_depth:
@@ -1090,7 +1093,7 @@ quality:
       frame_rate:
         enabled: true
         weight: 5
-        priority: [120fps, 60fps, 30fps, 25fps, 24fps]
+        priority: [120fps, 60fps, 30fps, 24fps, 25fps]
       subtitle:
         enabled: true
         weight: 1
@@ -1098,15 +1101,16 @@ quality:
       file_extension:
         enabled: true
         weight: 2
-        priority: [mp4, mkv, ts, m2ts]
+        priority: [mkv, mp4, ts, m2ts]
       file_size:
         enabled: false
         weight: 0
-      bitrate:
+      video_bitrate:
         enabled: true
+        unknown_policy: zero
         weight: 16
     exclude:
-      resolutions: []
+      resolutions: [480p, 360p]
       codecs: []
       hdr_types: []
 
@@ -1422,4 +1426,3 @@ quality:
       resolutions: [360p]
       codecs: [Xvid, DivX]
       hdr_types: []
-
