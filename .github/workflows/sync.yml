@@ -23,7 +23,6 @@ jobs:
 
       - name: Sync files
         run: |
-          git checkout upstream/master -- category-rules
           git checkout upstream/master -- full_rules.yaml
           git checkout upstream/master -- naming-rules.yaml
           git checkout upstream/master -- quality-rules.yaml
