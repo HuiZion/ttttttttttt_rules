@@ -1285,7 +1285,7 @@ quality:
 
       video_bitrate:
         enabled: true
-        weight: 20
+        weight: 30
 
     exclude:
       resolutions: [360p]
@@ -1319,7 +1319,6 @@ quality:
 
       audio_codec:
         enabled: true
-        max_tracks: 7
         weight: 5
         priority:
           - codecs: [Dolby TrueHD]
@@ -1416,7 +1415,7 @@ quality:
 
       video_bitrate:
         enabled: true
-        weight: 20
+        weight: 30
 
     exclude:
       resolutions: [360p]
